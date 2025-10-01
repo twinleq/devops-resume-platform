@@ -199,6 +199,7 @@ MIT License - см. файл [LICENSE](LICENSE)
 
 ## Автор
 
-**Ромадановский Виталий Денисович**
+**Ромадановский Виталий Денисович** - Junior DevOps Engineer
 - GitHub: [@twinleq](https://github.com/twinleq)
 - Email: twinleq@bk.ru
+- Website: [https://romadanovsky.ru](https://romadanovsky.ru)

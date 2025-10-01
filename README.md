@@ -11,13 +11,17 @@
 - Масштабируется в Kubernetes
 - Обновляется через GitOps
 
+## 🌐 Демо
+
+**Живой сайт:** [https://romadanovsky.ru](https://romadanovsky.ru)
+
 ## 🏗️ Архитектура
 
 ```mermaid
 graph TB
     A[GitHub Repository] --> B[GitHub Actions CI/CD]
     B --> C[Docker Registry]
-    B --> D[AWS Infrastructure]
+    B --> D[Infrastructure]
     C --> E[Kubernetes Cluster]
     D --> E
     E --> F[Resume Application]
@@ -52,68 +56,47 @@ graph TB
 - **OPA Gatekeeper** - политики безопасности
 - **Security Scanning** - сканирование уязвимостей
 
-## 🚀 Быстрый старт
+## 🚀 Возможности
 
-### Локальная разработка
+### CI/CD Pipeline
+- Автоматическая сборка и тестирование
+- Сканирование безопасности
+- Развертывание в несколько сред
+- Rollback стратегии
 
-```bash
-# Клонирование репозитория
-git clone https://github.com/twinleq/devops-resume-platform.git
-cd devops-resume-platform
+### Infrastructure as Code
+- Terraform для управления инфраструктурой
+- Kubernetes манифесты
+- Автоматическое масштабирование
+- Управление секретами
 
-# Запуск локального сервера
-cd app/src
-./simple-server.ps1 -Port 8086
+### Мониторинг и логирование
+- Prometheus для сбора метрик
+- Grafana дашборды
+- Централизованное логирование
+- Алерты и уведомления
+
+### Безопасность
+- SSL/TLS шифрование
+- Network Policies
+- RBAC
+- Security scanning
+
+## 📁 Структура проекта
+
 ```
-
-### Docker
-
-```bash
-# Запуск с Docker Compose
-docker-compose up -d
-
-# Проверка статуса
-docker-compose ps
+devops-resume-platform/
+├── app/                    # Веб-приложение
+│   ├── src/               # Исходный код
+│   ├── Dockerfile         # Docker образ
+│   └── nginx.conf         # Nginx конфигурация
+├── k8s/                   # Kubernetes манифесты
+├── terraform/             # Terraform конфигурации
+├── monitoring/            # Мониторинг (Prometheus, Grafana)
+├── .github/workflows/     # GitHub Actions
+├── docs/                  # Документация
+└── security/              # Политики безопасности
 ```
-
-### Kubernetes
-
-```bash
-# Развертывание в Kubernetes
-kubectl apply -f k8s/
-
-# Проверка статуса
-kubectl get pods -n devops-resume
-```
-
-### Terraform
-
-```bash
-# Инициализация Terraform
-terraform init
-
-# Планирование развертывания
-terraform plan
-
-# Развертывание инфраструктуры
-terraform apply
-```
-
-## 📊 Мониторинг
-
-### Health Checks
-- **Endpoint**: `/health`
-- **Response**: `{"status":"UP"}`
-- **Frequency**: 30 секунд
-
-### Metrics
-- **Endpoint**: `/metrics`
-- **Format**: Prometheus format
-- **Uptime**: секунды работы
-
-### Dashboards
-- **Grafana**: http://localhost:3000
-- **Prometheus**: http://localhost:9090
 
 ## 🔄 CI/CD Pipeline
 
@@ -139,28 +122,32 @@ terraform apply
 - Input Validation
 - Secrets Management
 
-## 📁 Структура проекта
+## 📊 Мониторинг
 
-```
-devops-resume-platform/
-├── app/                    # Веб-приложение
-│   ├── src/               # Исходный код
-│   ├── Dockerfile         # Docker образ
-│   └── nginx.conf         # Nginx конфигурация
-├── k8s/                   # Kubernetes манифесты
-├── terraform/             # Terraform конфигурации
-├── monitoring/            # Мониторинг (Prometheus, Grafana)
-├── .github/workflows/     # GitHub Actions
-├── docs/                  # Документация
-└── security/              # Политики безопасности
-```
+### Health Checks
+- **Endpoint**: `/health`
+- **Response**: `{"status":"UP"}`
+- **Frequency**: 30 секунд
+
+### Metrics
+- **Endpoint**: `/metrics`
+- **Format**: Prometheus format
+- **Uptime**: секунды работы
+
+### Dashboards
+- **Grafana**: Production dashboards
+- **Prometheus**: Metrics collection
 
 ## 📚 Документация
 
 - [Архитектура](docs/architecture.md)
 - [Развертывание](docs/deployment.md)
 - [Мониторинг](docs/monitoring.md)
-- [Устранение неполадок](docs/troubleshooting.md)
+
+## 🎯 Связанные проекты
+
+- [Linux Server Automation](https://github.com/twinleq/linux-server-automation) - Автоматизация Linux серверов
+- [Docker Containerization](https://github.com/twinleq/docker-containerization) - Примеры контейнеризации
 
 ## 📄 Лицензия
 
@@ -171,3 +158,4 @@ MIT License - см. файл [LICENSE](LICENSE)
 **Ромадановский Виталий Денисович**
 - GitHub: [@twinleq](https://github.com/twinleq)
 - Email: twinleq@bk.ru
+- Сайт: [https://romadanovsky.ru](https://romadanovsky.ru)
