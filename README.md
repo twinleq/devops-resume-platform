@@ -18,47 +18,126 @@ graph TB
     A[GitHub Repository] --> B[GitHub Actions CI/CD]
     B --> C[Docker Registry]
     B --> D[AWS Infrastructure]
-    D --> E[EKS Cluster]
-    E --> F[Resume App]
-    E --> G[Prometheus]
-    E --> H[Grafana]
-    E --> I[Traefik Ingress]
-    F --> J[External Load Balancer]
+    C --> E[Kubernetes Cluster]
+    D --> E
+    E --> F[Resume Application]
+    E --> G[Prometheus Monitoring]
+    E --> H[Grafana Dashboards]
+    F --> I[User Access]
     G --> H
-    I --> K[Let's Encrypt SSL]
-    L[Custom Domain] --> J
 ```
 
 ## 🛠️ Технологический стек
 
 ### Frontend
-- HTML5, CSS3, JavaScript (ES6+)
-- Responsive design
-- Progressive Web App (PWA)
+- **HTML5, CSS3, JavaScript** - современный веб-интерфейс
+- **Responsive Design** - адаптивный дизайн
+- **Progressive Web App** - PWA функциональность
 
-### Infrastructure
-- **Cloud**: AWS (Free Tier)
-- **IaC**: Terraform
-- **Containerization**: Docker, Docker Compose
-- **Orchestration**: Kubernetes (EKS)
-- **Ingress**: Traefik
-- **SSL**: Let's Encrypt
+### Backend & Infrastructure
+- **Docker** - контейнеризация приложений
+- **Kubernetes** - оркестрация контейнеров
+- **Nginx** - reverse proxy и статика
+- **Terraform** - Infrastructure as Code
 
-### CI/CD
-- **Pipeline**: GitHub Actions
-- **Registry**: Docker Hub / GitHub Container Registry
-- **Deployment**: GitOps with ArgoCD
-
-### Monitoring & Logging
-- **Metrics**: Prometheus
-- **Visualization**: Grafana
-- **Logging**: Fluentd + CloudWatch
-- **Health Checks**: Custom endpoints
+### DevOps & Monitoring
+- **GitHub Actions** - CI/CD автоматизация
+- **Prometheus** - сбор метрик
+- **Grafana** - визуализация данных
+- **ELK Stack** - централизованное логирование
 
 ### Security
-- **Secrets**: AWS Secrets Manager
-- **Network**: VPC, Security Groups
-- **SSL/TLS**: Automated certificate management
+- **Network Policies** - сетевая безопасность
+- **RBAC** - управление доступом
+- **OPA Gatekeeper** - политики безопасности
+- **Security Scanning** - сканирование уязвимостей
+
+## 🚀 Быстрый старт
+
+### Локальная разработка
+
+```bash
+# Клонирование репозитория
+git clone https://github.com/twinleq/devops-resume-platform.git
+cd devops-resume-platform
+
+# Запуск локального сервера
+cd app/src
+./simple-server.ps1 -Port 8086
+```
+
+### Docker
+
+```bash
+# Запуск с Docker Compose
+docker-compose up -d
+
+# Проверка статуса
+docker-compose ps
+```
+
+### Kubernetes
+
+```bash
+# Развертывание в Kubernetes
+kubectl apply -f k8s/
+
+# Проверка статуса
+kubectl get pods -n devops-resume
+```
+
+### Terraform
+
+```bash
+# Инициализация Terraform
+terraform init
+
+# Планирование развертывания
+terraform plan
+
+# Развертывание инфраструктуры
+terraform apply
+```
+
+## 📊 Мониторинг
+
+### Health Checks
+- **Endpoint**: `/health`
+- **Response**: `{"status":"UP"}`
+- **Frequency**: 30 секунд
+
+### Metrics
+- **Endpoint**: `/metrics`
+- **Format**: Prometheus format
+- **Uptime**: секунды работы
+
+### Dashboards
+- **Grafana**: http://localhost:3000
+- **Prometheus**: http://localhost:9090
+
+## 🔄 CI/CD Pipeline
+
+### GitHub Actions Workflow
+1. **Code Push** → Trigger
+2. **Build** → Docker image
+3. **Test** → Unit/Integration tests
+4. **Security Scan** → Vulnerability check
+5. **Deploy** → Production server
+6. **Health Check** → Verify deployment
+7. **Notify** → Success/Failure alerts
+
+## 🔒 Безопасность
+
+### Network Security
+- Network Policies
+- Pod Security Standards
+- RBAC (Role-Based Access Control)
+
+### Application Security
+- HTTPS/TLS
+- Content Security Policy
+- Input Validation
+- Secrets Management
 
 ## 📁 Структура проекта
 
@@ -67,84 +146,28 @@ devops-resume-platform/
 ├── app/                    # Веб-приложение
 │   ├── src/               # Исходный код
 │   ├── Dockerfile         # Docker образ
-│   └── package.json       # Зависимости
-├── terraform/             # Infrastructure as Code
-│   ├── main.tf           # Основная конфигурация
-│   ├── variables.tf      # Переменные
-│   └── outputs.tf        # Выводы
-├── k8s/                  # Kubernetes манифесты
-│   ├── namespace.yaml    # Namespace
-│   ├── deployment.yaml   # Deployment
-│   ├── service.yaml      # Service
-│   └── ingress.yaml      # Ingress
-├── monitoring/           # Мониторинг
-│   ├── prometheus/       # Prometheus конфигурация
-│   └── grafana/          # Grafana дашборды
-├── .github/              # GitHub Actions
-│   └── workflows/        # CI/CD pipelines
-├── docker-compose.yml    # Локальная разработка
-└── README.md            # Документация
-## 📊 Мониторинг
-
-### Метрики
-- **Uptime**: Доступность приложения
-- **Response Time**: Время отклика
-- **Resource Usage**: CPU, Memory, Disk
-- **Error Rate**: Частота ошибок
-
-### Дашборды
-- **Application Overview**: Общий обзор приложения
-- **Infrastructure**: Состояние инфраструктуры
-- **Security**: Мониторинг безопасности
-
-## 🔒 Безопасность
-
-- HTTPS через Let's Encrypt
-- Network policies в Kubernetes
-- Минимальные IAM права
-- Secrets management через AWS
-- Регулярные обновления зависимостей
-
-## 📈 CI/CD Pipeline
-
-1. **Build**: Сборка Docker образа
-2. **Test**: Запуск тестов и линтинга
-3. **Security Scan**: Проверка уязвимостей
-4. **Push**: Загрузка в registry
-5. **Deploy**: Развертывание в Kubernetes
-6. **Verify**: Проверка health checks
-
-## 🌐 Live Demo
-
-- **Production**: https://resume.yourdomain.com
-- **Staging**: https://staging-resume.yourdomain.com
-- **Monitoring**: https://grafana.yourdomain.com
+│   └── nginx.conf         # Nginx конфигурация
+├── k8s/                   # Kubernetes манифесты
+├── terraform/             # Terraform конфигурации
+├── monitoring/            # Мониторинг (Prometheus, Grafana)
+├── .github/workflows/     # GitHub Actions
+├── docs/                  # Документация
+└── security/              # Политики безопасности
+```
 
 ## 📚 Документация
 
 - [Архитектура](docs/architecture.md)
 - [Развертывание](docs/deployment.md)
 - [Мониторинг](docs/monitoring.md)
-- [Troubleshooting](docs/troubleshooting.md)
-
-## 🤝 Вклад в проект
-
-1. Fork репозитория
-2. Создайте feature branch
-3. Внесите изменения
-4. Создайте Pull Request
+- [Устранение неполадок](docs/troubleshooting.md)
 
 ## 📄 Лицензия
 
-MIT License - см. [LICENSE](LICENSE) файл.
+MIT License - см. файл [LICENSE](LICENSE)
 
-## 📞 Контакты
+## 👨‍💻 Автор
 
-- **Email**: twinleq@bk.ru
-- **GitHub**: [@twinleq](https://github.com/twinleq)
-
----
-
-⭐ Если проект вам понравился, поставьте звезду!
-
-
+**Ромадановский Виталий Денисович**
+- GitHub: [@twinleq](https://github.com/twinleq)
+- Email: twinleq@bk.ru
