@@ -60,43 +60,6 @@ graph TB
 - **Network**: VPC, Security Groups
 - **SSL/TLS**: Automated certificate management
 
-## 🚀 Быстрый старт
-
-### Локальная разработка
-
-1. Клонируйте репозиторий:
-```bash
-git clone https://github.com/yourusername/devops-resume-platform.git
-cd devops-resume-platform
-```
-
-2. Запустите локально с Docker Compose:
-```bash
-docker-compose up -d
-```
-
-3. Откройте http://localhost:8080
-
-### Развертывание в облаке
-
-1. Настройте AWS credentials:
-```bash
-aws configure
-```
-
-2. Инициализируйте Terraform:
-```bash
-cd terraform
-terraform init
-terraform plan
-terraform apply
-```
-
-3. Настройте ArgoCD для GitOps:
-```bash
-kubectl apply -f argocd/
-```
-
 ## 📁 Структура проекта
 
 ```
@@ -121,29 +84,6 @@ devops-resume-platform/
 │   └── workflows/        # CI/CD pipelines
 ├── docker-compose.yml    # Локальная разработка
 └── README.md            # Документация
-```
-
-## 🔧 Конфигурация
-
-### Переменные окружения
-
-Создайте `.env` файл:
-```bash
-AWS_REGION=us-east-1
-AWS_ACCESS_KEY_ID=your_key
-AWS_SECRET_ACCESS_KEY=your_secret
-DOCKER_REGISTRY=your_registry
-DOMAIN_NAME=your-domain.com
-```
-
-### GitHub Secrets
-
-Настройте следующие секреты в GitHub:
-- `AWS_ACCESS_KEY_ID`
-- `AWS_SECRET_ACCESS_KEY`
-- `DOCKER_USERNAME`
-- `DOCKER_PASSWORD`
-
 ## 📊 Мониторинг
 
 ### Метрики
@@ -200,9 +140,8 @@ MIT License - см. [LICENSE](LICENSE) файл.
 
 ## 📞 Контакты
 
-- **Email**: your.email@example.com
-- **LinkedIn**: [your-profile](https://linkedin.com/in/yourprofile)
-- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **Email**: twinleq@bk.ru
+- **GitHub**: [@twinleq](https://github.com/twinleq)
 
 ---
 
