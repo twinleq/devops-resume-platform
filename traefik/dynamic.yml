@@ -1,0 +1,178 @@
+# Traefik dynamic configuration
+http:
+  middlewares:
+    # Security headers middleware
+    security-headers:
+      headers:
+        frameDeny: true
+        contentTypeNosniff: true
+        browserXssFilter: true
+        referrerPolicy: "strict-origin-when-cross-origin"
+        customRequestHeaders:
+          X-Forwarded-Proto: "https"
+        customResponseHeaders:
+          X-Robots-Tag: "index, follow"
+          X-Content-Type-Options: "nosniff"
+          X-Frame-Options: "SAMEORIGIN"
+          X-XSS-Protection: "1; mode=block"
+          Strict-Transport-Security: "max-age=31536000; includeSubDomains"
+          Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'"
+
+    # Rate limiting middleware
+    rate-limit:
+      rateLimit:
+        average: 100
+        period: 1m
+        burst: 200
+
+    # Basic auth middleware (for admin areas)
+    basic-auth:
+      basicAuth:
+        users:
+          - "admin:$2y$10$..."
+
+    # IP whitelist middleware
+    ip-whitelist:
+      ipWhiteList:
+        sourceRange:
+          - "127.0.0.1/32"
+          - "10.0.0.0/8"
+          - "172.16.0.0/12"
+          - "192.168.0.0/16"
+
+    # Circuit breaker middleware
+    circuit-breaker:
+      circuitBreaker:
+        expression: "NetworkErrorRatio() > 0.3 || ResponseCodeRatio(500, 600, 0, 600) > 0.3"
+
+    # Retry middleware
+    retry:
+      retry:
+        attempts: 3
+        initialInterval: 100ms
+
+    # Compress middleware
+    compress:
+      compress: {}
+
+    # Strip prefix middleware
+    strip-prefix:
+      stripPrefix:
+        prefixes:
+          - "/api"
+
+    # Add prefix middleware
+    add-prefix:
+      addPrefix:
+        prefix: "/api/v1"
+
+  routers:
+    # Main application router
+    resume-app:
+      rule: "Host(`resume.yourdomain.com`)"
+      entryPoints:
+        - "websecure"
+      middlewares:
+        - "security-headers"
+        - "rate-limit"
+        - "compress"
+      service: "resume-app-service"
+      tls:
+        certResolver: "letsencrypt"
+
+    # API router
+    resume-api:
+      rule: "Host(`resume.yourdomain.com`) && PathPrefix(`/api`)"
+      entryPoints:
+        - "websecure"
+      middlewares:
+        - "security-headers"
+        - "rate-limit"
+        - "strip-prefix"
+      service: "resume-app-service"
+      tls:
+        certResolver: "letsencrypt"
+
+    # Metrics router (restricted access)
+    metrics:
+      rule: "Host(`metrics.yourdomain.com`)"
+      entryPoints:
+        - "websecure"
+      middlewares:
+        - "security-headers"
+        - "basic-auth"
+        - "ip-whitelist"
+      service: "prometheus-service"
+      tls:
+        certResolver: "letsencrypt"
+
+    # Grafana router (restricted access)
+    grafana:
+      rule: "Host(`grafana.yourdomain.com`)"
+      entryPoints:
+        - "websecure"
+      middlewares:
+        - "security-headers"
+        - "basic-auth"
+        - "ip-whitelist"
+      service: "grafana-service"
+      tls:
+        certResolver: "letsencrypt"
+
+  services:
+    resume-app-service:
+      loadBalancer:
+        servers:
+          - url: "http://devops-resume-app-service.devops-resume.svc.cluster.local"
+        healthCheck:
+          path: "/health"
+          interval: "30s"
+          timeout: "5s"
+
+    prometheus-service:
+      loadBalancer:
+        servers:
+          - url: "http://prometheus.monitoring.svc.cluster.local:9090"
+
+    grafana-service:
+      loadBalancer:
+        servers:
+          - url: "http://grafana.monitoring.svc.cluster.local:3000"
+
+tcp:
+  middlewares:
+    # TCP rate limiting
+    tcp-rate-limit:
+      rateLimit:
+        average: 100
+        period: 1s
+        burst: 200
+
+  routers:
+    # TCP router for database connections (if needed)
+    database:
+      rule: "HostSNI(`db.yourdomain.com`)"
+      service: "database-service"
+      middlewares:
+        - "tcp-rate-limit"
+
+  services:
+    database-service:
+      loadBalancer:
+        servers:
+          - address: "database.internal:5432"
+
+udp:
+  routers:
+    # UDP router for DNS (if needed)
+    dns:
+      entryPoints:
+        - "dns"
+      service: "dns-service"
+
+  services:
+    dns-service:
+      loadBalancer:
+        servers:
+          - address: "8.8.8.8:53"
+

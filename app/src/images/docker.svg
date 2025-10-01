@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="48" height="48">
+  <!-- Docker Background -->
+  <rect width="100" height="100" fill="#0db7ed" rx="8"/>
+  
+  <!-- Docker Whale Body -->
+  <path d="M25 45 C25 40, 30 35, 40 35 L45 35 C50 35, 55 40, 55 45 L55 50 L25 50 Z" fill="white"/>
+  
+  <!-- Docker Whale Head -->
+  <ellipse cx="30" cy="42" rx="8" ry="6" fill="white"/>
+  
+  <!-- Docker Containers -->
+  <rect x="15" y="55" width="8" height="12" fill="white" rx="1"/>
+  <rect x="25" y="55" width="8" height="12" fill="white" rx="1"/>
+  <rect x="35" y="55" width="8" height="12" fill="white" rx="1"/>
+  <rect x="45" y="55" width="8" height="12" fill="white" rx="1"/>
+  <rect x="55" y="55" width="8" height="12" fill="white" rx="1"/>
+  <rect x="65" y="55" width="8" height="12" fill="white" rx="1"/>
+  
+  <!-- Container Stack -->
+  <rect x="15" y="70" width="8" height="12" fill="white" rx="1"/>
+  <rect x="25" y="70" width="8" height="12" fill="white" rx="1"/>
+  <rect x="35" y="70" width="8" height="12" fill="white" rx="1"/>
+  <rect x="45" y="70" width="8" height="12" fill="white" rx="1"/>
+  
+  <!-- Water Ripples -->
+  <path d="M20 85 Q25 80, 30 85 T40 85" stroke="white" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M50 85 Q55 80, 60 85 T70 85" stroke="white" stroke-width="2" fill="none" opacity="0.5"/>
+</svg>

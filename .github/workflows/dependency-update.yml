@@ -1,0 +1,187 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    # Run dependency updates weekly on Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  # Update Node.js dependencies
+  update-node-dependencies:
+    name: Update Node.js Dependencies
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: app/package-lock.json
+
+    - name: Update dependencies
+      run: |
+        cd app
+        npm update
+
+    - name: Check for security vulnerabilities
+      run: |
+        cd app
+        npm audit --audit-level moderate
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'chore: update Node.js dependencies'
+        title: 'chore: update Node.js dependencies'
+        body: |
+          This PR updates Node.js dependencies to their latest versions.
+          
+          **Changes:**
+          - Updated npm packages to latest compatible versions
+          - Fixed security vulnerabilities (if any)
+          
+          **Testing:**
+          - [ ] All tests pass
+          - [ ] No breaking changes
+          - [ ] Security audit passes
+        branch: dependency-update-node
+        delete-branch: true
+
+  # Update Terraform dependencies
+  update-terraform-dependencies:
+    name: Update Terraform Dependencies
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.6.0
+
+    - name: Update Terraform providers
+      run: |
+        cd terraform
+        terraform init -upgrade
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'chore: update Terraform providers'
+        title: 'chore: update Terraform providers'
+        body: |
+          This PR updates Terraform providers to their latest versions.
+          
+          **Changes:**
+          - Updated Terraform providers to latest versions
+          - Updated Terraform version constraints
+          
+          **Testing:**
+          - [ ] Terraform plan succeeds
+          - [ ] No breaking changes
+          - [ ] Infrastructure validation passes
+        branch: dependency-update-terraform
+        delete-branch: true
+
+  # Update Docker base images
+  update-docker-base-images:
+    name: Update Docker Base Images
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Check for base image updates
+      run: |
+        # Check for nginx:alpine updates
+        LATEST_NGINX=$(docker run --rm alpine:latest sh -c "apk update && apk add curl && curl -s 'https://registry.hub.docker.com/v2/repositories/library/nginx/tags/' | grep -o '\"name\":\"[^\"]*alpine[^\"]*\"' | head -1 | cut -d'\"' -f4")
+        echo "Latest nginx:alpine version: $LATEST_NGINX"
+        
+        # Check for node:alpine updates
+        LATEST_NODE=$(docker run --rm alpine:latest sh -c "apk update && apk add curl && curl -s 'https://registry.hub.docker.com/v2/repositories/library/node/tags/' | grep -o '\"name\":\"[^\"]*alpine[^\"]*\"' | head -1 | cut -d'\"' -f4")
+        echo "Latest node:alpine version: $LATEST_NODE"
+
+    - name: Update Dockerfile
+      run: |
+        # Update nginx version in Dockerfile
+        sed -i "s|FROM nginx:alpine|FROM nginx:$LATEST_NGINX|g" app/Dockerfile
+        
+        # Update node version in Dockerfile
+        sed -i "s|FROM node:18-alpine|FROM node:$LATEST_NODE|g" app/Dockerfile
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'chore: update Docker base images'
+        title: 'chore: update Docker base images'
+        body: |
+          This PR updates Docker base images to their latest versions.
+          
+          **Changes:**
+          - Updated nginx:alpine to latest version
+          - Updated node:alpine to latest version
+          
+          **Testing:**
+          - [ ] Docker build succeeds
+          - [ ] No security vulnerabilities
+          - [ ] Application runs correctly
+        branch: dependency-update-docker
+        delete-branch: true
+
+  # Security updates notification
+  security-updates-notification:
+    name: Security Updates Notification
+    runs-on: ubuntu-latest
+    needs: [update-node-dependencies, update-terraform-dependencies, update-docker-base-images]
+    if: always()
+    steps:
+    - name: Notify about dependency updates
+      uses: 8398a7/action-slack@v3
+      with:
+        status: custom
+        custom_payload: |
+          {
+            "text": "📦 Dependency Update Summary",
+            "attachments": [
+              {
+                "color": "good",
+                "fields": [
+                  {
+                    "title": "Node.js Dependencies",
+                    "value": "${{ needs.update-node-dependencies.result }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Terraform Providers",
+                    "value": "${{ needs.update-terraform-dependencies.result }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Docker Base Images",
+                    "value": "${{ needs.update-docker-base-images.result }}",
+                    "short": true
+                  }
+                ]
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+

@@ -1,0 +1,50 @@
+{
+  "name": "devops-resume-platform",
+  "version": "1.0.0",
+  "description": "Automated DevOps Resume Platform with CI/CD, IaC, and Monitoring",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "npx http-server src -p 8080 -c-1 --cors",
+    "dev": "npx http-server src -p 8080 -c-1 --cors -o",
+    "build": "echo 'Static build completed'",
+    "test": "jest",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "validate": "npm run lint && npm run test",
+    "docker:build": "docker build -t devops-resume-platform .",
+    "docker:run": "docker run -p 8080:8080 devops-resume-platform",
+    "docker:push": "docker push devops-resume-platform",
+    "health": "curl -f http://localhost:8080/health || exit 1"
+  },
+  "keywords": [
+    "devops",
+    "resume",
+    "automation",
+    "ci-cd",
+    "infrastructure-as-code",
+    "kubernetes",
+    "docker",
+    "monitoring"
+  ],
+  "author": "DevOps Engineer",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "http-server": "^14.1.1",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/devops-resume-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/devops-resume-platform/issues"
+  },
+  "homepage": "https://resume.yourdomain.com"
+}
+

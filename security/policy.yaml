@@ -1,0 +1,120 @@
+# Security Policy for DevOps Resume Platform
+
+apiVersion: v1
+kind: Policy
+metadata:
+  name: devops-resume-security-policy
+  namespace: devops-resume
+  labels:
+    app.kubernetes.io/name: devops-resume-platform
+    app.kubernetes.io/part-of: devops-resume-platform
+spec:
+  # Pod Security Policy
+  podSecurityPolicy:
+    # Run containers as non-root
+    runAsUser:
+      rule: MustRunAsNonRoot
+      ranges:
+        - min: 1000
+          max: 65535
+    
+    # Use read-only root filesystem
+    volumes:
+      - configMap
+      - emptyDir
+      - projected
+      - secret
+      - downwardAPI
+      - persistentVolumeClaim
+    
+    # Drop all capabilities
+    allowedCapabilities: []
+    requiredDropCapabilities:
+      - ALL
+    
+    # Disallow privilege escalation
+    allowPrivilegeEscalation: false
+    
+    # Read-only root filesystem
+    readOnlyRootFilesystem: true
+    
+    # Disallow host namespaces
+    hostNetwork: false
+    hostPID: false
+    hostIPC: false
+    
+    # Disallow host paths
+    allowedHostPaths: []
+    
+    # Disallow privileged containers
+    privileged: false
+    
+    # Disallow host ports
+    hostPorts: []
+
+  # Network Policy
+  networkPolicy:
+    # Default deny all ingress and egress
+    policyTypes:
+      - Ingress
+      - Egress
+    
+    # Allow ingress only from ingress controller
+    ingress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                name: ingress-nginx
+        ports:
+          - protocol: TCP
+            port: 8080
+    
+    # Allow egress for DNS and HTTPS
+    egress:
+      - to: []
+        ports:
+          - protocol: UDP
+            port: 53
+          - protocol: TCP
+            port: 443
+
+  # Security Context Constraints
+  securityContextConstraints:
+    # Run as non-root
+    runAsUser:
+      type: MustRunAsNonRoot
+    
+    # Use read-only root filesystem
+    readOnlyRootFilesystem: true
+    
+    # Drop all capabilities
+    allowedCapabilities: []
+    requiredDropCapabilities:
+      - ALL
+    
+    # Disallow privilege escalation
+    allowPrivilegeEscalation: false
+    
+    # Disallow privileged containers
+    privileged: false
+    
+    # Disallow host namespaces
+    allowHostNetwork: false
+    allowHostPID: false
+    allowHostIPC: false
+    
+    # Disallow host ports
+    allowHostPorts: false
+    
+    # Disallow host paths
+    allowedHostPaths: []
+    
+    # Allow specific volume types
+    volumes:
+      - configMap
+      - emptyDir
+      - projected
+      - secret
+      - downwardAPI
+      - persistentVolumeClaim
+

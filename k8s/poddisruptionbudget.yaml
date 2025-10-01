@@ -1,0 +1,16 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: devops-resume-app-pdb
+  namespace: devops-resume
+  labels:
+    app.kubernetes.io/name: devops-resume-platform
+    app.kubernetes.io/part-of: devops-resume-platform
+    app.kubernetes.io/component: frontend
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: devops-resume-platform
+      app.kubernetes.io/component: frontend
+

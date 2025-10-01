@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevOps Engineer Resume - Automated Resume Platform">
+    <meta name="keywords" content="DevOps, Engineer, Resume, AWS, Kubernetes, Docker, CI/CD">
+    <meta name="author" content="DevOps Engineer">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DevOps Engineer Resume">
+    <meta property="og:description" content="Automated DevOps Resume Platform with CI/CD, IaC, and Monitoring">
+    <meta property="og:url" content="https://resume.yourdomain.com">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="DevOps Engineer Resume">
+    <meta property="twitter:description" content="Automated DevOps Resume Platform with CI/CD, IaC, and Monitoring">
+    
+    <title>DevOps Engineer Resume</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>DevOps Engineer</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">О себе</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#experience" class="nav-link">Опыт</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link">Навыки</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Проекты</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Контакты</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Привет! Я <span class="highlight">DevOps Engineer</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Специализируюсь на автоматизации, контейнеризации и облачных технологиях.
+                    Создаю надежную и масштабируемую инфраструктуру.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Связаться</a>
+                    <a href="#projects" class="btn btn-secondary">Проекты</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="uptime">99.9%</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="response-time">50ms</span>
+                        <span class="stat-label">Response Time</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="deployments">0</span>
+                        <span class="stat-label">Deployments Today</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <img src="images/docker.svg" alt="Docker">
+                        <span>Docker</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="images/kubernetes.svg" alt="Kubernetes">
+                        <span>Kubernetes</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="images/aws.svg" alt="AWS">
+                        <span>AWS</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="images/terraform.svg" alt="Terraform">
+                        <span>Terraform</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">О себе</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Junior DevOps Engineer с опытом автоматизации процессов разработки и развертывания.
+                        Специализируюсь на создании надежной, масштабируемой инфраструктуры с использованием
+                        современных технологий контейнеризации и облачных решений.
+                    </p>
+                    <p>
+                        Увлекаюсь Infrastructure as Code, мониторингом и автоматизацией CI/CD процессов.
+                        Всегда стремлюсь к улучшению производительности и надежности систем.
+                    </p>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <strong>1+ год</strong> в IT
+                        </div>
+                        <div class="highlight-item">
+                            <strong>1</strong> DevOps проект
+                        </div>
+                        <div class="highlight-item">
+                            <strong>99.9%</strong> средний uptime систем
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <div class="avatar-placeholder">
+                                <span class="avatar-initials">ВР</span>
+                            </div>
+                        </div>
+                        <div class="profile-info">
+                            <h3>DevOps Engineer</h3>
+                            <p>Junior Level</p>
+                            <div class="profile-links">
+                                <a href="https://github.com/twinleq" target="_blank">
+                                    <img src="images/github.svg" alt="GitHub">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Опыт работы</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>DevOps Engineer (Стажер)</h3>
+                        <h4>Самообучение и практика</h4>
+                        <span class="timeline-date">2025 - настоящее время</span>
+                        <ul>
+                            <li>Изучение и практика CI/CD процессов с GitHub Actions</li>
+                            <li>Контейнеризация приложений с Docker</li>
+                            <li>Настройка локальных Kubernetes кластеров</li>
+                            <li>Работа с Infrastructure as Code (Terraform)</li>
+                            <li>Создание автоматизированной платформы резюме</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Инженер Центра Развития Инфраструктуры</h3>
+                        <h4>ПАО "Таттелеком"</h4>
+                        <span class="timeline-date">2025 - настоящее время</span>
+                        <ul>
+                            <li>Администрирование серверов Linux, оперативное решение проблем</li>
+                            <li>Тестирование и подбор камер видеонаблюдения.</li>
+                            <li>Тестирование и подбор коммутаторов.</li>
+                            <li>Составление технических инструкций для настройки оборудования.</li>
+                            <li>Решение проблем абонентов домофонии.</li>
+                            <li>Тестирование API функционала.</li>
+                            <li>Развертывание автоматизации на python, bash (сократил ручной труд на 80%)</li>
+                            <li>Администрирование backend платформы домофонии.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Ведущий инженер</h3>
+                        <h4>Россельхозбанк</h4>
+                        <span class="timeline-date">2024 - 2024</span>
+                        <ul>
+                            <li>Осуществил миграцию 20+ пользовательских рабочих мест с Windows 10 на Astra Linux, обеспечив совместимость ПО и бесперебойную работу, что демонстрирует опыт работы с Linux-инфраструктурой в production-среде.</li>
+                            <li>Централизовал управление печатной инфраструктурой через Print Server и GPO, упростив администрирование и сократив количество обращений по этой теме.</li>
+                            <li>Вёл техническую документацию и отчётность, работал с Jira и Confluence для управления задачами и обмена знаниями внутри команды.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Технические навыки</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Infrastructure & Automation</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="images/linux.svg" alt="Linux">
+                            <span>Linux</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/terraform.svg" alt="Terraform">
+                            <span>Terraform</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="70"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/api.svg" alt="API">
+                            <span>API</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="75"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Containers & Orchestration</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="images/docker.svg" alt="Docker">
+                            <span>Docker</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="75"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="images/kubernetes.svg" alt="Kubernetes">
+                            <span>Kubernetes</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="60"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/helm/helm-original.svg" alt="Helm">
+                            <span>Helm</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="50"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>CI/CD & Automation</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="images/github.svg" alt="GitHub Actions">
+                            <span>GitHub Actions</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="70"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins">
+                            <span>Jenkins</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="60"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" alt="GitLab CI">
+                            <span>GitLab CI</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="55"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Monitoring & Logging</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus">
+                            <span>Prometheus</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="65"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana">
+                            <span>Grafana</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="60"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elasticsearch/elasticsearch-original.svg" alt="ELK">
+                            <span>ELK Stack</span>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="55"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Проекты</h2>
+            <div class="projects-grid">
+                <div class="project-card featured">
+                    <div class="project-header">
+                        <h3>DevOps Resume Platform</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/yourusername/devops-resume-platform" target="_blank">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                            </a>
+                            <a href="https://resume.yourdomain.com" target="_blank">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg" alt="Live Demo">
+                            </a>
+                        </div>
+                    </div>
+                    <p>Полностью автоматизированная платформа для размещения резюме с CI/CD, IaC, мониторингом и GitOps. Используется как демонстрация DevOps-навыков.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">Terraform</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">GitHub Actions</span>
+                        <span class="tech-tag">Prometheus</span>
+                        <span class="tech-tag">Grafana</span>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-indicator active"></span>
+                        <span>Production Ready</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Microservices Migration</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/yourusername/microservices-migration" target="_blank">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                            </a>
+                        </div>
+                    </div>
+                    <p>Миграция монолитного приложения в микросервисную архитектуру с использованием Kubernetes и Istio service mesh.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">Istio</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Helm</span>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-indicator completed"></span>
+                        <span>Completed</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Infrastructure Automation</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/yourusername/infra-automation" target="_blank">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                            </a>
+                        </div>
+                    </div>
+                    <p>Автоматизация создания и управления инфраструктурой с помощью Terraform и Ansible для различных сред.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Terraform</span>
+                        <span class="tech-tag">Ansible</span>
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">GitHub Actions</span>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-indicator completed"></span>
+                        <span>Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Связаться со мной</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Давайте работать вместе!</h3>
+                    <p>Готов обсудить возможности сотрудничества и помочь с вашими DevOps задачами.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <img src="images/github.svg" alt="GitHub">
+                            <div>
+                                <h4>GitHub</h4>
+                                <a href="https://github.com/twinleq" target="_blank">github.com/twinleq</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <img src="images/email.svg" alt="Email">
+                            <div>
+                                <h4>Email</h4>
+                                <a href="mailto:twinleq@bk.ru">twinleq@bk.ru</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Тема" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Сообщение" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p>&copy; 2025 Ромадановский Виталий Денисович. Все права защищены.</p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-links">
+                        <a href="#about">О себе</a>
+                        <a href="#experience">Опыт</a>
+                        <a href="#skills">Навыки</a>
+                        <a href="#projects">Проекты</a>
+                        <a href="#contact">Контакты</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Сайт развернут с помощью DevOps-практик: Docker, Kubernetes, CI/CD, IaC</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Health Check Status -->
+    <div class="health-status" id="healthStatus">
+        <div class="health-indicator">
+            <span class="health-dot"></span>
+            <span class="health-text">System Status: Healthy</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
