@@ -20,15 +20,18 @@
 ```mermaid
 graph TB
     A[GitHub Repository] --> B[GitHub Actions CI/CD]
-    B --> C[Docker Registry]
-    B --> D[Infrastructure]
-    C --> E[Kubernetes Cluster]
-    D --> E
-    E --> F[Resume Application]
-    E --> G[Prometheus Monitoring]
-    E --> H[Grafana Dashboards]
-    F --> I[User Access]
-    G --> H
+    B --> C[Docker Hub Registry]
+    B --> D[VPS Server]
+    D --> E[Docker Containers]
+    E --> F[Nginx Reverse Proxy]
+    E --> G[Resume Application]
+    E --> H[Prometheus Monitoring]
+    E --> I[Grafana Dashboards]
+    E --> J[Loki Logging]
+    F --> K[SSL/TLS Termination]
+    K --> L[User Access]
+    H --> I
+    J --> I
 ```
 
 ## 🛠️ Технологический стек
@@ -40,47 +43,48 @@ graph TB
 
 ### Backend & Infrastructure
 - **Docker** - контейнеризация приложений
-- **Kubernetes** - оркестрация контейнеров
-- **Nginx** - reverse proxy и статика
-- **Terraform** - Infrastructure as Code
+- **Docker Compose** - оркестрация контейнеров на VPS
+- **Nginx** - reverse proxy и SSL termination
+- **Terraform** - Infrastructure as Code (опционально)
 
 ### DevOps & Monitoring
 - **GitHub Actions** - CI/CD автоматизация
 - **Prometheus** - сбор метрик
 - **Grafana** - визуализация данных
-- **ELK Stack** - централизованное логирование
+- **Loki** - централизованное логирование
+- **Let's Encrypt** - SSL сертификаты
 
 ### Security
-- **Network Policies** - сетевая безопасность
-- **RBAC** - управление доступом
-- **OPA Gatekeeper** - политики безопасности
-- **Security Scanning** - сканирование уязвимостей
+- **SSL/TLS** - HTTPS шифрование
+- **Security Headers** - защита от XSS, CSRF
+- **Let's Encrypt** - автоматические SSL сертификаты
+- **Firewall** - сетевая безопасность
 
 ## 🚀 Возможности
 
 ### CI/CD Pipeline
-- Автоматическая сборка и тестирование
-- Сканирование безопасности
-- Развертывание в несколько сред
-- Rollback стратегии
+- Автоматическая сборка Docker образов
+- Сканирование безопасности контейнеров
+- Развертывание на VPS сервер
+- Health checks и мониторинг
 
 ### Infrastructure as Code
-- Terraform для управления инфраструктурой
-- Kubernetes манифесты
-- Автоматическое масштабирование
-- Управление секретами
+- Docker Compose для оркестрации
+- Terraform для управления инфраструктурой (опционально)
+- Kubernetes манифесты (для будущего масштабирования)
+- Управление секретами через переменные окружения
 
 ### Мониторинг и логирование
-- Prometheus для сбора метрик
-- Grafana дашборды
-- Централизованное логирование
-- Алерты и уведомления
+- Prometheus для сбора метрик приложения
+- Grafana дашборды для визуализации
+- Loki для централизованного логирования
+- Node Exporter для системных метрик
 
 ### Безопасность
-- SSL/TLS шифрование
-- Network Policies
-- RBAC
-- Security scanning
+- SSL/TLS шифрование с Let's Encrypt
+- Security headers (HSTS, CSP, X-Frame-Options)
+- Firewall настройки
+- Docker security best practices
 
 ## 📁 Структура проекта
 
@@ -135,8 +139,73 @@ devops-resume-platform/
 - **Uptime**: секунды работы
 
 ### Dashboards
-- **Grafana**: Production dashboards
-- **Prometheus**: Metrics collection
+- **Grafana**: https://grafana.romadanovsky.ru (Production dashboards)
+- **Prometheus**: https://prometheus.romadanovsky.ru (Metrics collection)
+- **Loki**: Centralized logging system
+
+## 🚀 Быстрый старт
+
+### Production Deployment (VPS)
+
+```bash
+# Клонирование репозитория на сервер
+git clone https://github.com/twinleq/devops-resume-platform.git
+cd devops-resume-platform
+
+# Запуск production stack
+docker-compose -f docker-compose.prod.yml up -d
+
+# Проверка статуса
+docker-compose -f docker-compose.prod.yml ps
+
+# Проверка логов
+docker-compose -f docker-compose.prod.yml logs -f
+```
+
+### Локальная разработка
+
+```bash
+# Клонирование репозитория
+git clone https://github.com/twinleq/devops-resume-platform.git
+cd devops-resume-platform
+
+# Запуск локального сервера (PowerShell)
+cd app/src
+.\simple-server.ps1 -Port 8086
+```
+
+### Docker (Development)
+
+```bash
+# Запуск с Docker Compose
+docker-compose up -d
+
+# Проверка статуса
+docker-compose ps
+```
+
+### Kubernetes (Optional)
+
+```bash
+# Развертывание в Kubernetes
+kubectl apply -f k8s/
+
+# Проверка статуса
+kubectl get pods -n devops-resume
+```
+
+### Infrastructure as Code
+
+```bash
+# Инициализация Terraform
+terraform init
+
+# Планирование развертывания
+terraform plan
+
+# Развертывание инфраструктуры
+terraform apply
+```
 
 ## 📚 Документация
 
