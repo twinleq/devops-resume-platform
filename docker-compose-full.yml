@@ -23,11 +23,33 @@ services:
     ports:
       - "3001:3001"
     environment:
-      DB_HOST: postgres
-      DB_NAME: resume_db
-      DB_USER: resume_user
-      DB_PASSWORD: strong_password
-      DB_PORT: 5432
+      PGUSER: resume_user
+      PGHOST: postgres
+      PGDATABASE: resume_db
+      PGPASSWORD: strong_password
+      PGPORT: 5432
+      PORT: 3001
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  admin:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: admin-panel
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    environment:
+      PGUSER: resume_user
+      PGHOST: postgres
+      PGDATABASE: resume_db
+      PGPASSWORD: strong_password
+      PGPORT: 5432
+      ADMIN_PORT: 3002
+    command: ["node", "admin.js"]
     depends_on:
       - postgres
     networks:
