@@ -264,7 +264,7 @@ class ContactForm {
         submitBtn.disabled = true;
 
         try {
-            // Real API submission
+            // Try real API submission first
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
@@ -288,12 +288,33 @@ class ContactForm {
             }
         } catch (error) {
             console.error('Form submission error:', error);
-            this.showMessage('Ошибка при отправке сообщения. Проверьте подключение к интернету.', 'error');
+            
+            // Fallback: Show contact information instead of error
+            this.showContactInfo(data);
         } finally {
             // Reset button state
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         }
+    }
+
+    showContactInfo(data) {
+        // Show success message with contact info
+        const message = `Сообщение готово к отправке!\n\nИмя: ${data.name}\nEmail: ${data.email}\nСообщение: ${data.message}\n\nПожалуйста, отправьте это сообщение на email: twinleq@bk.ru\nили свяжитесь через GitHub: https://github.com/twinleq`;
+        
+        this.showMessage('Спасибо за сообщение! Поскольку сервер временно недоступен, пожалуйста, отправьте ваше сообщение на email: twinleq@bk.ru', 'success');
+        
+        // Copy contact info to clipboard
+        navigator.clipboard.writeText(message).then(() => {
+            console.log('📋 Contact info copied to clipboard');
+        }).catch(() => {
+            console.log('📋 Contact info ready for manual copy');
+        });
+        
+        this.form.reset();
+        
+        // Log the message for debugging
+        console.log('📧 Message ready for manual sending:', data);
     }
 
     showMessage(message, type) {
