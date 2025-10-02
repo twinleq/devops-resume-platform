@@ -47,6 +47,37 @@ class HealthMonitor {
 
     async updateMetrics() {
         try {
+            // Попробуем сначала API endpoint
+            const apiResponse = await fetch('/api/metrics');
+            if (apiResponse.ok) {
+                const data = await apiResponse.json();
+                
+                // Update uptime
+                const uptimeElement = document.getElementById('uptime');
+                if (uptimeElement && data.uptime) {
+                    uptimeElement.textContent = data.uptime;
+                }
+                
+                // Update response time
+                const responseTimeElement = document.getElementById('response-time');
+                if (responseTimeElement && data.response_time) {
+                    responseTimeElement.textContent = data.response_time + 'ms';
+                }
+                
+                // Update deployments
+                const deploymentsElement = document.getElementById('deployments');
+                if (deploymentsElement && data.deployments_today !== undefined) {
+                    deploymentsElement.textContent = data.deployments_today;
+                }
+                
+                return;
+            }
+        } catch (apiError) {
+            console.log('API metrics not available, trying Prometheus endpoint');
+        }
+        
+        // Fallback to Prometheus endpoint
+        try {
             const response = await fetch(this.metricsEndpoint);
             
             if (response.ok) {
@@ -66,11 +97,12 @@ class HealthMonitor {
                     }
                 }
                 
-                // Update uptime (конвертируем секунды в часы)
+                // Update uptime (конвертируем секунды в часы и минуты)
                 const uptimeElement = document.getElementById('uptime');
                 if (uptimeElement) {
                     const hours = Math.floor(uptime / 3600);
-                    uptimeElement.textContent = hours + 'h';
+                    const minutes = Math.floor((uptime % 3600) / 60);
+                    uptimeElement.textContent = `${hours}h ${minutes}m`;
                 }
                 
                 // Update response time (симуляция)
@@ -232,30 +264,36 @@ class ContactForm {
         submitBtn.disabled = true;
 
         try {
-            // Simulate form submission (replace with actual endpoint)
-            await this.simulateSubmission(data);
-            
-            // Show success message
-            this.showMessage('Сообщение успешно отправлено!', 'success');
-            this.form.reset();
+            // Real API submission
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Show success message
+                this.showMessage(result.message || 'Сообщение успешно отправлено!', 'success');
+                this.form.reset();
+                
+                // Log successful submission
+                console.log('📧 Message sent successfully:', data);
+            } else {
+                // Show error message
+                this.showMessage(result.error || 'Ошибка при отправке сообщения', 'error');
+            }
         } catch (error) {
             console.error('Form submission error:', error);
-            this.showMessage('Ошибка при отправке сообщения. Попробуйте еще раз.', 'error');
+            this.showMessage('Ошибка при отправке сообщения. Проверьте подключение к интернету.', 'error');
         } finally {
             // Reset button state
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         }
-    }
-
-    async simulateSubmission(data) {
-        // Simulate API call delay
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                console.log('Form data:', data);
-                resolve();
-            }, 1500);
-        });
     }
 
     showMessage(message, type) {
