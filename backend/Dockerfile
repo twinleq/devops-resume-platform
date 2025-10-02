@@ -8,11 +8,11 @@ LABEL description="DevOps Resume Platform Backend API"
 # Создание директории приложения
 WORKDIR /app
 
-# Копирование package.json и package-lock.json
-COPY package*.json ./
+# Копирование package.json
+COPY package.json ./
 
 # Установка зависимостей
-RUN npm ci --only=production
+RUN npm install --only=production
 
 # Копирование исходного кода
 COPY . .
